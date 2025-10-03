@@ -1,7 +1,7 @@
 /* 
  * CS:APP Data Lab 
  * 
- * <Laji Sackor, lsackor>
+ * <Laji Sackor, Dathal Guzman, Miles Gray, lsackor, dguzman3, mgray12>
  * 
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
