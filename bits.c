@@ -1,7 +1,7 @@
 /* 
  * CS:APP Data Lab 
  * 
- * <Please put your name and userid here>
+ * <Laji Sackor, Dathal Guzman, Miles Gray, lsackor, dguzman3, mgray12>
  * 
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
@@ -174,7 +174,8 @@ NOTES:
  *   Rating: 1
  */
 int bitNor(int x, int y) {
-  return 2;
+  // NOR = ~(x | y) = (~x) & (~y)
+  return (~x) & (~y);
 }
 /* 
  * bitXor - x^y using only ~ and & 
@@ -184,7 +185,9 @@ int bitNor(int x, int y) {
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+  // XOR = (x | y) & ~(x & y) 
+  // Rewritten using only ~ and &
+  return (~(x & y)) & (~((~x) & (~y)));
 }
 /* 
  * TMax - return maximum two's complement integer 
@@ -193,7 +196,8 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmax(void) {
-  return 2;
+  // 0x7FFFFFFF
+  return ~(1 << 31);
 }
 /* 
  * isNotEqual - return 0 if x == y, and 1 otherwise 
@@ -203,7 +207,8 @@ int tmax(void) {
  *   Rating: 2
  */
 int isNotEqual(int x, int y) {
-  return 2;
+  // Return 1 if x != y, else 0
+  return !!(x ^ y);
 }
 /* 
  * copyLSB - set all bits of result to least significant bit of x
@@ -213,7 +218,8 @@ int isNotEqual(int x, int y) {
  *   Rating: 2
  */
 int copyLSB(int x) {
-  return 2;
+  // Shift LSB to MSB and back down to fill all bits 
+  return (x << 31) >> 31;
 }
 /* 
  * rotateRight - Rotate x to the right by n
@@ -224,7 +230,13 @@ int copyLSB(int x) {
  *   Rating: 3 
  */
 int rotateRight(int x, int n) {
-  return 2;
+  int mask = (1 << n) + ~0;            // (1 << n) -1 
+  int low = x & mask;                 // bits that will wrap  
+  int sh = (32 + (~n + 1)) & 31;     // (32 - n) mod 32
+  int left = low << sh;             // wrapped bits shifted left 
+  int rightMask = ~(((1 << 31) >> n) << 1);        // low (32-n) ones 
+  int right = (x >> n) & rightMask;               // logical right shift 
+  return left | right;
 }
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
@@ -234,5 +246,6 @@ int rotateRight(int x, int n) {
  *   Rating: 3
  */
 int isNonNegative(int x) {
-  return 2;
+  // 1 if sign bit is 0
+  return !(x >> 31);
 }
